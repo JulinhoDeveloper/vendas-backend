@@ -1,32 +1,31 @@
-const express = require('express');
-require('dotenv').config();
-const cors = require('cors');
-const { dbConnection } = require('./database/config');
+import express from 'express';
+//const express=require('express');
+import morgan from 'morgan';
+//const morgan=require('morgan');
+import cors from 'cors';
 
-// servidor de express
-const app = express();
+import mongoose from 'mongoose';
+//import router from './routes';
 
-// Banco e dados
-dbConnection();
+//Conexão o banco e dados
+mongoose.Promise=global.Promise;
+const dbUrl = 'mongodb+srv://lithinho:lithinho@cluster0.pqlzx.mongodb.net/youtube';
+mongoose.connect(dbUrl, {useNewUrlParser: true})
+.then(mongoose => console.log('conectado ao banco de dados'))
+.catch(err => console.log(err));
 
-// CORS
-app.use(cors())
 
+const app=express();
+app.use(morgan('dev'));
+app.use(cors());
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 // Diretório Público
 app.use( express.static('public') );
+//app.use('/api',router);
+app.set('port',process.env.PORT || 4000);
 
-// Leitura do body
-app.use( express.json() );
-
-// Rotas
-
-
-
-
-
-app.listen( process.env.PORT, () => {
-    console.log(`Servidor na porta ${ process.env.PORT }`);
+app.listen(app.get('port'),()=>{
+    console.log('rodando na porta ' + app.get('port'));
 });
-
-
-

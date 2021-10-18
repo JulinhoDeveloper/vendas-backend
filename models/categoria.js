@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+exports.Categoria, Schema, model = require('mongoose');
 
-const categoriaSchema = Schema({
+const categoriaSchema = new Schema({
     name: {
         type: String,
         maxlength: 50,
@@ -23,4 +23,4 @@ const categoriaSchema = Schema({
 });
 
 
-module.exports = model('Categoria', categoriaSchema );
+const Categoria = mongoose.model('categoria',categoriaSchema);
