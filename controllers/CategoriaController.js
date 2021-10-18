@@ -7,7 +7,7 @@ const add = async (req,res,next) =>{
         res.status(200).json(reg);
     } catch (e){
         res.status(500).send({
-            message:'Ocurrió un error'
+            message:'Ocorreu um erro'
         });
         next(e);
     }
@@ -17,14 +17,14 @@ const query  =  async (req,res,next) => {
         const reg=await models.Categoria.findOne({_id:req.query._id});
         if (!reg){
             res.status(404).send({
-                message: 'El registro no existe'
+                message: 'O registro não existe'
             });
         } else{
             res.status(200).json(reg);
         }
     } catch(e){
         res.status(500).send({
-            message:'Ocurrió un error'
+            message: 'Ocorreu um erro'
         });
         next(e);
     }
@@ -36,7 +36,7 @@ const list =  async (req,res,next) => {
         res.status(200).json(reg);
     } catch(e){
         res.status(500).send({
-            message:'Ocurrió un error'
+            message:'Ocorreu um erro'
         });
         next(e);
     }
@@ -47,7 +47,7 @@ const update = async (req,res,next) => {
         res.status(200).json(reg);
     } catch(e){
         res.status(500).send({
-            message:'Ocurrió un error'
+            message:'Ocorreu um erro'
         });
         next(e);
     }
@@ -58,7 +58,7 @@ const remove = async (req,res,next) => {
         res.status(200).json(reg);
     } catch(e){
         res.status(500).send({
-            message:'Ocurrió un error'
+            message:  'Ocorreu um erro'
         });
         next(e);
     }
@@ -73,6 +73,17 @@ const activate = async (req,res,next) => {
         });
         next(e);
     }
+},
+deactivate = async (req,res,next) => {
+    try {
+        const reg = await models.Categoria.findByIdAndUpdate({_id:req.body._id},{estado:0});
+        res.status(200).json(reg);
+    } catch(e){
+        res.status(500).send({
+            message:'Ocorreu um erro'
+        });
+        next(e);
+    }
 }
              
 module.exports = {
@@ -81,5 +92,6 @@ module.exports = {
     list,
     update,
     remove,
-    activate
+    activate,
+    deactivate
 }
