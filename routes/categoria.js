@@ -1,8 +1,7 @@
-const { Router } = require('express');
-const categoriaController = require('../controllers/CategoriaController');
+import routerx from 'express-promise-router';
+import categoriaController from '../controllers/CategoriaController';
 
-const router = Router();
-
+const router=routerx();
 
 router.post('/add',categoriaController.add);
 router.get('/query',categoriaController.query);
@@ -12,5 +11,4 @@ router.delete('/remove',categoriaController.remove);
 router.put('/activate',categoriaController.activate);
 router.put('/deactivate',categoriaController.deactivate);
 
-
-module.exports = router;
+export default router;

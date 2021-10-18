@@ -1,12 +1,12 @@
 import express from 'express';
-//const express=require('express');
+
 import morgan from 'morgan';
-//const morgan=require('morgan');
+
 import cors from 'cors';
 
 import mongoose from 'mongoose';
-//import router from './routes';
 
+import router from "./routes/index"
 //Conexão o banco e dados
 mongoose.Promise=global.Promise;
 const dbUrl = 'mongodb+srv://lithinho:lithinho@cluster0.pqlzx.mongodb.net/youtube';
@@ -23,9 +23,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 // Diretório Público
 app.use( express.static('public') );
-//app.use('/api',router);
+app.use('/api',router.categoriaRouter);
 app.set('port',process.env.PORT || 4000);
 
 app.listen(app.get('port'),()=>{
     console.log('rodando na porta ' + app.get('port'));
 });
+
